@@ -116,7 +116,7 @@ class CustomServer(protocol.ServerFactory):
         self.player = player
 
     def buildProtocol(self, addr):
-        p = PayloadProtocol()
+        p = self.protocol()
         p.factory = self
         return p
 
