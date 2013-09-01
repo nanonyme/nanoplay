@@ -7,9 +7,9 @@ from nanoplay import PayloadProtocol, ControlProtocol, CustomServer, Player
 
 class Options(usage.Options):
     optParameters = [
-        ["payload-endpoint", "p",
+        ["payload", "p",
          "tcp:port=5000", "Endpoint to listen for files on"],
-        ["control-enpoint", "c",
+        ["control", "c",
          "tcp:port=5001", "Endpoint to listen for control commands on"]
         ]
 
@@ -26,10 +26,10 @@ class NanoplayMaker(object):
         player = Player(reactor)
         reactor.addSystemEventTrigger("before", "shutdown", player.kill)
         s = service.MultiService()
-        payload_service = strports.service(options["payload-endpoint"],                                   
+        payload_service = strports.service(options["payload"],                                   
                                            CustomServer(PayloadProtocol, player))
         payload_service.setServiceParent(s)
-        payload_service = strports.service(options["control-endpoint"],
+        payload_service = strports.service(options["control"],
                                            CustomServer(ControlProtocol, player))
         payload_service.setServiceParent(s)
         return s

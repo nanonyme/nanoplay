@@ -6,4 +6,5 @@ setup(name='nanoplay',
       author='Seppo Yli-Olli',
       author_email='seppo.yliolli@gmail.com',
       packages=['nanoplay'],
+      scripts=['scripts/nanoplay']
      )

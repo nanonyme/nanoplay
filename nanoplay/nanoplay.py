@@ -1,10 +1,5 @@
-from twisted.internet import glib2reactor # for non-GUI apps
-glib2reactor.install()
-from zope.interface import implements
-from twisted.python import log, usage
-from twisted.plugin import IPlugin
+from twisted.python import log
 from twisted.internet import reactor, defer, protocol, error
-from twisted.application import service, strports
 from twisted.protocols import basic
 import os
 import pygst
@@ -126,34 +121,3 @@ class CustomServer(protocol.ServerFactory):
         return p
 
 
-class Options(usage.Options):
-    optParameters = [
-        ["payload-endpoint", "p",
-         "tcp:port=5000", "Endpoint to listen for files on"],
-        ["control-enpoint", "c",
-         "tcp:port=5001", "Endpoint to listen for control commands on"]
-        ]
-
-class NanoplayMaker(object):
-    implements(service.IServiceMaker, IPlugin)
-    tapname = "nanoplay"
-    description = "nanoplay, trivial music player"
-    options = Options
-
-    def makeService(self, options):
-        """
-        Construct a TCPServer from a factory defined in myproject.
-        """
-        player = Player(reactor)
-        reactor.addSystemEventTrigger("before", "shutdown", player.kill)
-        s = service.MultiService()
-        payload_service = strports.service(options["payload-endpoint"],                                   
-                                           CustomServer(PayloadProtocol, player))
-        payload_service.setServiceParent(s)
-        payload_service = strports.service(options["control-endpoint"],
-                                           CustomServer(PayloadProtocol, player))
-        payload_service.setServiceParent(s)
-        return s
-
-
-serviceMaker = NanoplayMaker()
