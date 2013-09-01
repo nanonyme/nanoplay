@@ -8,10 +8,6 @@ import gst
 import collections
 import tempfile
 
-def log_and_exit(fail):
-    log.err(fail)
-    reactor.stop()
-
 class Player(object):
     def __init__(self, reactor):
         self.reactor = reactor
