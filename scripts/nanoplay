@@ -1,0 +1,2 @@
+#!/bin/sh
+twistd --reactor=glib2 nanoplay $*
