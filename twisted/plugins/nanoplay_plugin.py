@@ -29,9 +29,9 @@ class NanoplayMaker(object):
         payload_service = strports.service(options["payload"],                                   
                                            CustomServer(PayloadProtocol, player))
         payload_service.setServiceParent(s)
-        payload_service = strports.service(options["control"],
+        control_service = strports.service(options["control"],
                                            CustomServer(ControlProtocol, player))
-        payload_service.setServiceParent(s)
+        control_service.setServiceParent(s)
         return s
 
 
