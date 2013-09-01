@@ -13,7 +13,13 @@ setup(name='nanoplay',
       packages=['nanoplay', 'twisted.plugins'],
       package_data={"twisted" : ["plugins/nanoplay_plugin.py"]},
       requires=['Twisted'],
-      scripts=['scripts/nanoplay']
+      scripts=['scripts/nanoplay'],
+      classifiers=[
+        'Development Status :: 4 - Beta',
+        'Environment :: Console',
+        'Environment :: Web Environment',
+        'License :: OSI Approved :: The MIT License (MIT)'
+        ]
      )
 
 refresh_plugin_cache()
